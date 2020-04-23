@@ -1,0 +1,23 @@
+{
+	"name": "chipper",
+	"version": "0.1.0",
+	"description": "API for Chipper",
+	"main": "src/server.ts",
+	"scripts": {
+		"dev": "nodemon -w src --exec ts-node src/server.ts"
+	},
+	"author": "Raghav Sai",
+	"license": "ISC",
+	"dependencies": {
+		"graphql-yoga": "^1.18.3",
+		"typescript": "^3.8.3"
+	},
+	"prettier": {
+		"useTabs": true
+	},
+	"devDependencies": {
+		"dotenv": "^8.2.0",
+		"nodemon": "^2.0.3",
+		"ts-node": "^8.9.0"
+	}
+}
