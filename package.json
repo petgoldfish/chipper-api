@@ -4,12 +4,19 @@
 	"description": "API for Chipper",
 	"main": "src/server.ts",
 	"scripts": {
-		"dev": "nodemon -w src --exec ts-node src/server.ts"
+		"dev": "nodemon -w src --exec ts-node src/server.ts",
+		"start": "node dist/server.js"
 	},
 	"author": "Raghav Sai",
 	"license": "ISC",
 	"dependencies": {
+		"@types/node": "^13.13.2",
+		"@types/ws": "^7.2.4",
+		"graphql": "^15.0.0",
 		"graphql-yoga": "^1.18.3",
+		"pg": "^8.0.3",
+		"reflect-metadata": "^0.1.13",
+		"typeorm": "^0.2.24",
 		"typescript": "^3.8.3"
 	},
 	"prettier": {
