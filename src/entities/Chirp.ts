@@ -5,7 +5,6 @@ import {
 	Column,
 	CreateDateColumn,
 	ManyToOne,
-	JoinColumn,
 } from "typeorm";
 import { ID, Field, ObjectType, GraphQLTimestamp } from "type-graphql";
 import { User } from "./User";
@@ -26,9 +25,9 @@ export class Chirp extends BaseEntity {
 	content!: string;
 
 	@Field(() => User)
-	@ManyToOne((type) => User, (user) => user.chirps)
+	@ManyToOne((type) => User, (user) => user.chirps, { onDelete: "CASCADE" })
 	author!: User;
 
-	@JoinColumn()
+	@Column({ nullable: false })
 	authorId!: number;
 }

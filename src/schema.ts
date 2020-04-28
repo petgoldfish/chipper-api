@@ -1,10 +1,8 @@
 import { buildSchema } from "type-graphql";
-import { PingResolver } from "./resolvers/PingResolver";
-import { ChirpResolver } from "./resolvers/ChirpResolver";
-import { UserResolver } from "./resolvers/UserResolver";
+import { join } from "path";
 
 export function createSchema() {
 	return buildSchema({
-		resolvers: [PingResolver, ChirpResolver, UserResolver],
+		resolvers: [join(__dirname, "/resolvers/*")],
 	});
 }
