@@ -6,6 +6,7 @@ import {
 	Mutation,
 	Arg,
 	Query,
+	Int,
 } from "type-graphql";
 import { User } from "../entities/User";
 import { Chirp } from "../entities/Chirp";
@@ -17,18 +18,15 @@ export class UserResolver implements ResolverInterface<User> {
 		return Chirp.find({ where: { authorId: author.id }, cache: 1000 });
 	}
 
-	@Mutation((returns) => User)
-	async createUser(
-		@Arg("name") name: string,
-		@Arg("password") password: string
-	) {
-		return User.create({ name, password }).save();
-	}
-
 	@Query((returns) => [User])
 	async users() {
 		return User.find({ 
 			relations: ["chirps"],
 		});
+	}
+
+	@Mutation(() => Boolean)
+	async deleteUser(@Arg("id", () => Int) id: number) {
+		return (await User.delete(id)).affected!;
 	}
 }

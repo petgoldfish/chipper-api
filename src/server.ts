@@ -25,7 +25,7 @@ if (process.env.NODE_ENV !== "production") {
 	// Setup graphql server
 	const server = new ApolloServer({
 		schema,
-		context: ({ request }: Context) => ({ request }),
+		context: ({ req }: any) => ({ request: req }),
 	});
 
 	// Start server
