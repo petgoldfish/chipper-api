@@ -1,6 +1,5 @@
 import { Resolver, Mutation, Arg } from "type-graphql";
 import { User } from "../entities/User";
-import { AuthPayload } from "../types/AuthPayload";
 import { sign } from "jsonwebtoken";
 import { hashSync, compareSync } from "bcryptjs";
 
@@ -12,11 +11,11 @@ export class AuthResolver {
 		return User.create({ name, password: hashedPassword }).save();
 	}
 
-	@Mutation((returns) => AuthPayload)
+	@Mutation((returns) => String)
 	async login(
 		@Arg("name") name: string,
 		@Arg("password") password: string
-	): Promise<AuthPayload> {
+	): Promise<String> {
 		const user = await User.findOne({ name });
 		if (!user) {
 			throw new Error("User does not exist.");
@@ -29,8 +28,6 @@ export class AuthResolver {
 
 		const token = sign({ userId: user.id }, process.env.APP_SECRET!);
 
-		return {
-			token,
-		};
+		return token;
 	}
 }
