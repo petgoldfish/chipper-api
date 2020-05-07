@@ -4,5 +4,6 @@ import { join } from "path";
 export function createSchema() {
 	return buildSchema({
 		resolvers: [join(__dirname, "/resolvers/*")],
+		dateScalarMode: "isoDate",
 	});
 }

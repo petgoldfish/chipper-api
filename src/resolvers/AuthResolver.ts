@@ -13,7 +13,10 @@ export class AuthResolver {
 	}
 
 	@Mutation((returns) => AuthPayload)
-	async login(@Arg("name") name: string, @Arg("password") password: string): Promise<AuthPayload> {
+	async login(
+		@Arg("name") name: string,
+		@Arg("password") password: string
+	): Promise<AuthPayload> {
 		const user = await User.findOne({ name });
 		if (!user) {
 			throw new Error("User does not exist.");
@@ -27,8 +30,7 @@ export class AuthResolver {
 		const token = sign({ userId: user.id }, process.env.APP_SECRET!);
 
 		return {
-			userId: user.id,
-			token
-		}
+			token,
+		};
 	}
 }

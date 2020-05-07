@@ -20,7 +20,7 @@ export class UserResolver implements ResolverInterface<User> {
 
 	@Query((returns) => [User])
 	async users() {
-		return User.find({ 
+		return User.find({
 			relations: ["chirps"],
 		});
 	}
