@@ -4,6 +4,7 @@
 	"description": "API for Chipper",
 	"main": "src/server.ts",
 	"scripts": {
+		"build": "tsc",
 		"dev": "nodemon -w src --exec ts-node src/server.ts",
 		"start": "node dist/server.js",
 		"postinstall": "npm run build"
