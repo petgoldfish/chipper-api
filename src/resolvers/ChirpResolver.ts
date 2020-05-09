@@ -28,10 +28,11 @@ export class ChirpResolver implements ResolverInterface<Chirp> {
 		});
 	}
 
-	@Mutation((returns) => Chirp)
+	@Mutation((returns) => Boolean)
 	async addChirp(@Ctx() context: Context, @Arg("content") content: string) {
 		const authorId = authAndGetUserId(context);
-		return Chirp.create({ authorId, content }).save();
+		await Chirp.create({ authorId, content }).save();
+		return true;
 	}
 
 	@Mutation(() => Boolean)

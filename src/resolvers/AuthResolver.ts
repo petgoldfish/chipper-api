@@ -5,10 +5,11 @@ import { hashSync, compareSync } from "bcryptjs";
 
 @Resolver()
 export class AuthResolver {
-	@Mutation((returns) => User)
+	@Mutation((returns) => Boolean)
 	async signup(@Arg("name") name: string, @Arg("password") password: string) {
 		const hashedPassword = hashSync(password, 10);
-		return User.create({ name, password: hashedPassword }).save();
+		await User.create({ name, password: hashedPassword }).save();
+		return true;
 	}
 
 	@Mutation((returns) => String)
