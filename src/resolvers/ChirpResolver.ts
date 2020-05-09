@@ -1,18 +1,17 @@
 import {
-	Query,
-	Mutation,
 	Arg,
-	ResolverInterface,
-	FieldResolver,
-	Root,
-	Int,
-	Resolver,
 	Ctx,
+	FieldResolver,
+	Mutation,
+	Query,
+	Resolver,
+	ResolverInterface,
+	Root,
 } from "type-graphql";
 import { Chirp } from "../entities/Chirp";
 import { User } from "../entities/User";
-import { authAndGetUserId } from "../utils";
 import { Context } from "../types/Context";
+import { authAndGetUserId } from "../utils";
 
 @Resolver((of) => Chirp)
 export class ChirpResolver implements ResolverInterface<Chirp> {
@@ -25,6 +24,9 @@ export class ChirpResolver implements ResolverInterface<Chirp> {
 	async feed() {
 		return await Chirp.find({
 			relations: ["author"],
+			order: {
+				createdAt: "DESC",
+			},
 		});
 	}
 
