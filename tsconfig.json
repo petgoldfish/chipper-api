@@ -5,6 +5,7 @@
 		"lib": ["es5", "es6", "esnext"],
 		"outDir": "./dist",
 		"strict": true,
+		"esModuleInterop": true,
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"forceConsistentCasingInFileNames": true
