@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== "production") {
 	// Setup database connection
 	await createConnection({
 		type: "postgres",
-		entities: ["src/entities/**/*.ts"],
+		entities: [__dirname + "/entities/*"],
 		synchronize: true,
 		url: process.env.DATABASE_URL,
 		cache: true,
@@ -29,6 +29,6 @@ if (process.env.NODE_ENV !== "production") {
 
 	// Start server
 	server.listen(process.env.PORT || 4000, () =>
-		console.log("server running on http://localhost:4000/graphql")
+		console.log("server up and running")
 	);
 })();
