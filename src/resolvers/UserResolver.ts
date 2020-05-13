@@ -41,7 +41,14 @@ export class UserResolver implements ResolverInterface<User> {
 	}
 
 	@Mutation(() => Boolean)
-	async deleteUser(@Arg("id", () => Int) id: number) {
-		return (await User.delete(id)).affected!;
+	async deleteUser(@Ctx() context: Context) {
+		const userId = authAndGetUserId(context);
+		return (await User.delete(userId)).affected!;
+	}
+
+	@Mutation(() => Boolean)
+	async deleteChirps(@Ctx() context: Context) {
+		const userId = authAndGetUserId(context);
+		return (await Chirp.delete({ authorId: userId })).affected!;
 	}
 }
