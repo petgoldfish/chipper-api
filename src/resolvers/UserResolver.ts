@@ -7,9 +7,12 @@ import {
 	Arg,
 	Query,
 	Int,
+	Ctx,
 } from "type-graphql";
 import { User } from "../entities/User";
 import { Chirp } from "../entities/Chirp";
+import { authAndGetUserId } from "../utils";
+import { Context } from "../types/Context";
 
 @Resolver((of) => User)
 export class UserResolver implements ResolverInterface<User> {
@@ -19,14 +22,33 @@ export class UserResolver implements ResolverInterface<User> {
 	}
 
 	@Query((returns) => [User])
-	async users() {
+	async users(@Ctx() context: Context) {
+		authAndGetUserId(context);
 		return User.find({
 			relations: ["chirps"],
 		});
 	}
 
+	@Query((returns) => User)
+	async me(@Ctx() context: Context) {
+		const userId = authAndGetUserId(context);
+		return User.findOne({
+			where: {
+				id: userId,
+			},
+			relations: ["chirps"],
+		});
+	}
+
 	@Mutation(() => Boolean)
-	async deleteUser(@Arg("id", () => Int) id: number) {
-		return (await User.delete(id)).affected!;
+	async deleteUser(@Ctx() context: Context) {
+		const userId = authAndGetUserId(context);
+		return (await User.delete(userId)).affected!;
+	}
+
+	@Mutation(() => Boolean)
+	async deleteChirps(@Ctx() context: Context) {
+		const userId = authAndGetUserId(context);
+		return (await Chirp.delete({ authorId: userId })).affected!;
 	}
 }

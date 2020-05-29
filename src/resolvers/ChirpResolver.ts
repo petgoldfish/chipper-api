@@ -38,7 +38,17 @@ export class ChirpResolver implements ResolverInterface<Chirp> {
 	}
 
 	@Mutation(() => Boolean)
-	async deleteChirp(@Arg("id") id: number) {
-		return (await Chirp.delete(id)).affected!;
+	async deleteChirp(@Ctx() context: Context, @Arg("id") id: number) {
+		const authorId = authAndGetUserId(context);
+		const chirp = await Chirp.findOne({
+			where: {
+				id,
+				authorId,
+			},
+		});
+
+		if (chirp) return (await Chirp.delete(id)).affected!;
+
+		throw new Error("Not authorized to delete this chirp!");
 	}
 }
