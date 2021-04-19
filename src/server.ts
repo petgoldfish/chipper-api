@@ -16,6 +16,7 @@ if (process.env.NODE_ENV !== "production") {
 		synchronize: true,
 		url: process.env.DATABASE_URL,
 		cache: true,
+		ssl: true
 	});
 
 	// Get type-graphql schema
@@ -24,7 +25,7 @@ if (process.env.NODE_ENV !== "production") {
 	// Setup graphql server
 	const server = new ApolloServer({
 		cors: {
-			origin: ["https://chipper-web.netlify.app"],
+			origin: "https://chipper-web.netlify.app",
 			credentials: true
 		},
 		schema,
