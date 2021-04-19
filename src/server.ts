@@ -23,6 +23,10 @@ if (process.env.NODE_ENV !== "production") {
 
 	// Setup graphql server
 	const server = new ApolloServer({
+		cors: {
+			origin: process.env.CORS_ORIGIN,
+			credentials: true
+		},
 		schema,
 		context: ({ req }) => ({ request: req }),
 	});
