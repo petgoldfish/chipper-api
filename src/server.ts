@@ -16,6 +16,7 @@ if (process.env.NODE_ENV !== "production") {
 		synchronize: true,
 		url: process.env.DATABASE_URL,
 		cache: true,
+		ssl: true
 	});
 
 	// Get type-graphql schema
