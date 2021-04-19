@@ -24,7 +24,7 @@ if (process.env.NODE_ENV !== "production") {
 	// Setup graphql server
 	const server = new ApolloServer({
 		cors: {
-			origin: process.env.CORS_ORIGIN,
+			origin: ["https://chipper-web.netlify.app"],
 			credentials: true
 		},
 		schema,
